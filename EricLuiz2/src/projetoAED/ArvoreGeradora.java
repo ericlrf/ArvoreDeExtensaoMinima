@@ -17,9 +17,9 @@ public class ArvoreGeradora {
 		this.listaArestas = grafo.getListaArestas();
 		this.algoritmoPrim();
 	}
-	
+
 	public ArvoreGeradora() {
-		
+
 	}
 
 	public ArrayList<Vertice> getListaVertices() {
@@ -34,7 +34,8 @@ public class ArvoreGeradora {
 		return listaVerticesPossiveis;
 	}
 
-	public void setListaVerticesPossiveis(ArrayList<Vertice> listaVerticesPossiveis) {
+	public void setListaVerticesPossiveis(
+			ArrayList<Vertice> listaVerticesPossiveis) {
 		this.listaVerticesPossiveis = listaVerticesPossiveis;
 	}
 
@@ -42,7 +43,8 @@ public class ArvoreGeradora {
 		return listaVerticesIncluidos;
 	}
 
-	public void setListaVerticesIncluidos(ArrayList<Vertice> listaVerticesIncluidos) {
+	public void setListaVerticesIncluidos(
+			ArrayList<Vertice> listaVerticesIncluidos) {
 		this.listaVerticesIncluidos = listaVerticesIncluidos;
 	}
 
@@ -69,7 +71,7 @@ public class ArvoreGeradora {
 	public void setListaArestasIncluidas(ArrayList<Aresta> listaArestasIncluidas) {
 		this.listaArestasIncluidas = listaArestasIncluidas;
 	}
-	
+
 	/**
 	 * Os Métodos abaixo são para processar a Árvore de Extensão Mínima
 	 * utilizando o Algoritmo de Prim (algoritmo guloso) no Grafo
@@ -77,13 +79,58 @@ public class ArvoreGeradora {
 
 	public void algoritmoPrim() {
 		//
-		
+		listaVerticesPossiveis.addAll(listaVertices);
+		listaVerticesIncluidos.add(listaVerticesPossiveis.get(0));
+		listaVerticesPossiveis.remove(0);
+		verificarVertices();
 	}
+
+	public void verificarVertices() {
+		for (int indice = 0; indice < listaVerticesIncluidos.size(); indice++) {
+			verficarArestas(listaVerticesIncluidos.get(indice));
+		}
+	}
+
+	public void verficarArestas(Vertice vertice) {
+		for (int indice = 0; indice < listaArestas.size(); indice++) {
+			if (vertice == listaArestas.get(indice).getVertice1()
+					|| vertice == listaArestas.get(indice).getVertice2()) {
+				listaArestasPossiveis.add(listaArestas.get(indice));
+			}
+		}
+	}
+
+	public void percorrerArestas() {
+		for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
+			compararArestas(listaArestasPossiveis.get(indice));
+		}
+	}
+	
+	public void compararArestas(Aresta aresta) {
+		int contador = 0;
+		if (!(listaArestasIncluidas.isEmpty())) {
+			for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
+				if(aresta == listaArestasIncluidas.get(indice)) {
+					contador++;
+				}
+			}
+			if(contador == 0) {
+				listaArestasIncluidas.add(aresta);
+			}
+		} else {
+			listaArestasIncluidas.add(aresta);
+			listaArestasPossiveis.remove(aresta);
+		}
+	}
+
+	/**
+	 * Método toString responsável pela representação em texto do sub-grafo
+	 * gerado por esta Classe, no canal de saída padrão
+	 * */
 
 	@Override
 	public String toString() {
-		return listaVerticesIncluidos + ""
-				+ listaArestasIncluidas;
+		return listaVerticesIncluidos + "" + listaArestasIncluidas;
 	}
-	
+
 }
