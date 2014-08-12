@@ -101,12 +101,19 @@ public class ArvoreGeradora {
 	}
 
 	public void percorrerArestas() {
+		Aresta menor;
 		for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
-			compararArestas(listaArestasPossiveis.get(indice));
+			if(listaArestasIncluidas.isEmpty()) {
+			menor = compararArestas(listaArestasPossiveis.get(indice));
+			} else {
+				if(compararArestas(listaArestasPossiveis.get(indice).getCusto() < menor.getCusto()) {
+					
+				}
+			}
 		}
 	}
 	
-	public void compararArestas(Aresta aresta) {
+	public Aresta compararArestas(Aresta aresta) {
 		int contador = 0;
 		if (!(listaArestasIncluidas.isEmpty())) {
 			for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
@@ -115,12 +122,12 @@ public class ArvoreGeradora {
 				}
 			}
 			if(contador == 0) {
-				listaArestasIncluidas.add(aresta);
+				return aresta;
 			}
 		} else {
-			listaArestasIncluidas.add(aresta);
-			listaArestasPossiveis.remove(aresta);
+			return aresta;
 		}
+		return aresta;
 	}
 
 	/**
