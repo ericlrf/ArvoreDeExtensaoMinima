@@ -3,23 +3,17 @@ package projetoAED;
 import java.util.ArrayList;
 
 public class ArvoreGeradora {
-	ArrayList<Vertice> listaVertices = new ArrayList<Vertice>();
+	ArrayList<Vertice> listaVertices = new Grafo().getListaVertices();
 	ArrayList<Vertice> listaVerticesPossiveis = new ArrayList<Vertice>();
 	ArrayList<Vertice> listaVerticesIncluidos = new ArrayList<Vertice>();
 
-	ArrayList<Aresta> listaArestas = new ArrayList<Aresta>();
+	ArrayList<Aresta> listaArestas = new Grafo().getListaArestas();
 	ArrayList<Aresta> listaArestasPossiveis = new ArrayList<Aresta>();
 	ArrayList<Aresta> listaArestasIncluidas = new ArrayList<Aresta>();
 
-	public ArvoreGeradora(Grafo grafo) {
-		super();
-		this.listaVertices = grafo.getListaVertices();
-		this.listaArestas = grafo.getListaArestas();
-		this.algoritmoPrim();
-	}
-
 	public ArvoreGeradora() {
-
+		super();
+		this.algoritmoPrim();
 	}
 
 	public ArrayList<Vertice> getListaVertices() {
