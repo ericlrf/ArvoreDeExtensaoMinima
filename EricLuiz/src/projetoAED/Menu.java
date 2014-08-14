@@ -11,7 +11,7 @@ public class Menu {
 	Vertice vertice = new Vertice();
 	Aresta aresta = new Aresta();
 	Grafo grafo = new Grafo(listaV, listaA);
-	ArvoreGeradora arvoreGeradora = new ArvoreGeradora(grafo);
+	ArvoreGeradora arvoreGeradora = new ArvoreGeradora();
 
 	public Menu() {
 		super();

@@ -3,23 +3,17 @@ package projetoAED;
 import java.util.ArrayList;
 
 public class ArvoreGeradora {
-	ArrayList<Vertice> listaVertices = new ArrayList<Vertice>();
+	ArrayList<Vertice> listaVertices = new Grafo().getListaVertices();
 	ArrayList<Vertice> listaVerticesPossiveis = new ArrayList<Vertice>();
 	ArrayList<Vertice> listaVerticesIncluidos = new ArrayList<Vertice>();
 
-	ArrayList<Aresta> listaArestas = new ArrayList<Aresta>();
+	ArrayList<Aresta> listaArestas = new Grafo().getListaArestas();
 	ArrayList<Aresta> listaArestasPossiveis = new ArrayList<Aresta>();
 	ArrayList<Aresta> listaArestasIncluidas = new ArrayList<Aresta>();
 
-	public ArvoreGeradora(Grafo grafo) {
-		super();
-		this.listaVertices = grafo.getListaVertices();
-		this.listaArestas = grafo.getListaArestas();
-		this.algoritmoPrim();
-	}
-
 	public ArvoreGeradora() {
-
+		super();
+		this.algoritmoPrim();
 	}
 
 	public ArrayList<Vertice> getListaVertices() {
@@ -78,57 +72,87 @@ public class ArvoreGeradora {
 	 * */
 
 	public void algoritmoPrim() {
-		//
+		// Passo 1
 		listaVerticesPossiveis.addAll(listaVertices);
 		listaVerticesIncluidos.add(listaVerticesPossiveis.get(0));
 		listaVerticesPossiveis.remove(0);
-		verificarVertices();
+		passoDoisUm();
 	}
 
-	public void verificarVertices() {
+	public void passoDoisUm() {
 		for (int indice = 0; indice < listaVerticesIncluidos.size(); indice++) {
-			verficarArestas(listaVerticesIncluidos.get(indice));
+			passoDoisDois(listaVerticesIncluidos.get(indice));
 		}
 	}
 
-	public void verficarArestas(Vertice vertice) {
+	public void passoDoisDois(Vertice vertice) {
 		for (int indice = 0; indice < listaArestas.size(); indice++) {
 			if (vertice == listaArestas.get(indice).getVertice1()
 					|| vertice == listaArestas.get(indice).getVertice2()) {
-				listaArestasPossiveis.add(listaArestas.get(indice));
+				if (passoDoisTres(listaArestas.get(indice))) {
+					listaArestasPossiveis.add(listaArestas.get(indice));
+				}
 			}
 		}
 	}
 
-	public void percorrerArestas() {
-		Aresta menor;
-		for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
-			if(listaArestasIncluidas.isEmpty()) {
-			menor = compararArestas(listaArestasPossiveis.get(indice));
-			} else {
-				if(compararArestas(listaArestasPossiveis.get(indice).getCusto() < menor.getCusto()) {
-					
-				}
-			}
-		}
-	}
-	
-	public Aresta compararArestas(Aresta aresta) {
-		int contador = 0;
-		if (!(listaArestasIncluidas.isEmpty())) {
-			for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
-				if(aresta == listaArestasIncluidas.get(indice)) {
-					contador++;
-				}
-			}
-			if(contador == 0) {
-				return aresta;
-			}
+	public boolean passoDoisTres(Aresta aresta) {
+		boolean resultado = true;
+		if (listaArestasPossiveis.isEmpty()) {
+			resultado = true;
 		} else {
-			return aresta;
+			for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
+				if (aresta == listaArestasPossiveis.get(indice)) {
+					resultado = false;
+				}
+			}
 		}
-		return aresta;
+		return resultado;
 	}
+
+	public void passoTresUm() {
+		Aresta menor = null;
+		for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
+			if (indice == 0) {
+				menor = listaArestasPossiveis.get(indice);
+			} else {
+				if (listaArestasPossiveis.get(indice).getCusto() < menor.getCusto()) {
+					menor = listaArestasPossiveis.get(indice);
+				}
+			}
+		}
+	}
+
+	// public void percorrerArestas() {
+	// Aresta menor;
+	// for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
+	// if(listaArestasIncluidas.isEmpty()) {
+	// menor = compararArestas(listaArestasPossiveis.get(indice));
+	// } else {
+	// if(compararArestas(listaArestasPossiveis.get(indice).getCusto() <
+	// menor.getCusto()) {
+	//
+	// }
+	// }
+	// }
+	// }
+	//
+	// public Aresta compararArestas(Aresta aresta) {
+	// int contador = 0;
+	// if (!(listaArestasIncluidas.isEmpty())) {
+	// for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
+	// if(aresta == listaArestasIncluidas.get(indice)) {
+	// contador++;
+	// }
+	// }
+	// if(contador == 0) {
+	// return aresta;
+	// }
+	// } else {
+	// return aresta;
+	// }
+	// return aresta;
+	// }
 
 	/**
 	 * Método toString responsável pela representação em texto do sub-grafo
