@@ -76,7 +76,11 @@ public class ArvoreGeradora {
 		listaVerticesPossiveis.addAll(listaVertices);
 		listaVerticesIncluidos.add(listaVerticesPossiveis.get(0));
 		listaVerticesPossiveis.remove(0);
-		passoDoisUm();
+		while (listaVerticesPossiveis.size() > 0) {
+			passoDoisUm();
+			passoTresUm();
+			passoTresDois();
+		}
 	}
 
 	public void passoDoisUm() {
@@ -111,15 +115,92 @@ public class ArvoreGeradora {
 	}
 
 	public void passoTresUm() {
-		Aresta menor = null;
-		for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
-			if (indice == 0) {
-				menor = listaArestasPossiveis.get(indice);
-			} else {
-				if (listaArestasPossiveis.get(indice).getCusto() < menor.getCusto()) {
-					menor = listaArestasPossiveis.get(indice);
-				}
+		Aresta menor;
+		int indiceA;
+		int indiceB;
+		for (indiceA = 1; indiceA < listaArestasPossiveis.size(); indiceA++) {
+			menor = listaArestasPossiveis.get(indiceA);
+			indiceB = indiceA - 1;
+			while ((indiceB >= 0)
+					&& (menor.getCusto() < listaArestasPossiveis.get(indiceB)
+							.getCusto())) {
+				listaArestasPossiveis.set(indiceB + 1,
+						listaArestasPossiveis.get(indiceB));
+				indiceB--;
 			}
+			listaArestasPossiveis.set(indiceB + 1, menor);
+		}
+	}
+
+	public void passoTresDois() {
+		for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
+			if (passoTresQuatro(listaArestasPossiveis.get(indice))) {
+				listaArestasIncluidas.add(listaArestasPossiveis.get(indice));
+				listaArestasPossiveis.remove(indice);
+				passoQuatroQuatro(listaArestasPossiveis.get(indice));
+			}
+		}
+	}
+
+	public boolean passoTresQuatro(Aresta aresta) {
+		boolean resultado = false;
+		if (passoTresTres(aresta) || passoQuatroUm(aresta)) {
+			resultado = true;
+		}
+		return resultado;
+	}
+
+	public boolean passoTresTres(Aresta aresta) {
+		boolean resultado = true;
+		for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
+			if (aresta == listaArestasIncluidas.get(indice)) {
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+
+	public boolean passoQuatroUm(Aresta aresta) {
+		boolean resultado = false;
+		if (passoQuatroDois(aresta) || passoQuatroTres(aresta)) {
+			resultado = true;
+		}
+		return resultado;
+	}
+
+	public boolean passoQuatroDois(Aresta aresta) {
+		boolean resultado = true;
+		for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
+			if (aresta.getVertice1() == listaArestasIncluidas.get(indice)
+					.getVertice1()
+					|| aresta.getVertice1() == listaArestasIncluidas
+							.get(indice).getVertice2()) {
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+
+	public boolean passoQuatroTres(Aresta aresta) {
+		boolean resultado = true;
+		for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
+			if (aresta.getVertice2() == listaArestasIncluidas.get(indice)
+					.getVertice1()
+					|| aresta.getVertice2() == listaArestasIncluidas
+							.get(indice).getVertice2()) {
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+
+	public void passoQuatroQuatro(Aresta aresta) {
+		if (passoQuatroDois(aresta)) {
+			listaVerticesIncluidos.add(aresta.getVertice1());
+			listaVerticesPossiveis.remove(aresta.getVertice1());
+		} else if (passoQuatroTres(aresta)) {
+			listaVerticesIncluidos.add(aresta.getVertice2());
+			listaVerticesPossiveis.remove(aresta.getVertice2());
 		}
 	}
 
@@ -132,10 +213,7 @@ public class ArvoreGeradora {
 	// if(compararArestas(listaArestasPossiveis.get(indice).getCusto() <
 	// menor.getCusto()) {
 	//
-	// }
-	// }
-	// }
-	// }
+	// }}}}
 	//
 	// public Aresta compararArestas(Aresta aresta) {
 	// int contador = 0;
