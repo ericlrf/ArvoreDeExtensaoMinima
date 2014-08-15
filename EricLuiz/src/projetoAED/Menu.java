@@ -1,16 +1,27 @@
 package projetoAED;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Menu {
+	
+	ArrayList<Vertice> listaVertices = new ArrayList<Vertice>();
+	ArrayList<Aresta> listaArestas = new ArrayList<Aresta>();
+	Vertice vertice = new Vertice();
+	Aresta aresta = new Aresta();
+	
+	public Menu() {
+		super();
+	}
 
 	public static void main(String[] args) {
 		Scanner ler = new Scanner(System.in);
-		String texto = null;
+		String texto = "";
 		Menu menu = new Menu();
 		System.out.println("-Inserir Vértices-");
 		System.out.println("");
-		while (texto.toLowerCase() != "fim") {
+		while (texto != "fim") {
 			System.out.println("Digite o nome do novo vertice: ");
 			texto = ler.next();
 			menu.inserirVertice(texto);
@@ -20,7 +31,7 @@ public class Menu {
 		texto = "";
 		System.out.println("-Inserir Arestas-");
 		System.out.println("");
-		while (texto.toLowerCase() != "fim") {
+		while (texto != "fim") {
 			menu.exibirVertices();
 			System.out.println("Escolha um dos vertices: ");
 			texto = ler.next();
@@ -37,7 +48,7 @@ public class Menu {
 		texto = "";
 		System.out.println("-Exibir Grafo e sub-grafo-");
 		System.out.println("");
-		while (texto.toLowerCase() != "fim") {
+		while (texto != "fim") {
 			System.out.println("[1] Exibir Grafo");
 			System.out.println("[2] Exibir Árvore de Extensão Mínima");
 			texto = ler.next();
@@ -81,11 +92,19 @@ public class Menu {
 
 	private void exibirVertices() {
 		// TODO Auto-generated method stub
+		Iterator<Vertice> iterator = listaVertices.iterator();
+		while (iterator.hasNext()) {
+			System.out.print(iterator.next());
+			System.out.print(" ");
+			
+		}
 
 	}
 
 	private void inserirVertice(String texto) {
 		// TODO Auto-generated method stub
+		vertice.setNome(texto);
+		listaVertices.add(vertice);
 
 	}
 
