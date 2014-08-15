@@ -3,18 +3,30 @@ package projetoAED;
 import java.util.ArrayList;
 
 public class ArvoreGeradora {
-	ArrayList<Vertice> listaVertices = new Grafo().getListaVertices();
+
+	/**
+	 * Declaração das variáveis
+	 * */
+
+	ArrayList<Vertice> listaVertices = new ArrayList<Vertice>();
 	ArrayList<Vertice> listaVerticesPossiveis = new ArrayList<Vertice>();
 	ArrayList<Vertice> listaVerticesIncluidos = new ArrayList<Vertice>();
-
-	ArrayList<Aresta> listaArestas = new Grafo().getListaArestas();
+	ArrayList<Aresta> listaArestas = new ArrayList<Aresta>();
 	ArrayList<Aresta> listaArestasPossiveis = new ArrayList<Aresta>();
 	ArrayList<Aresta> listaArestasIncluidas = new ArrayList<Aresta>();
+
+	/**
+	 * Construtor da Classe
+	 * */
 
 	public ArvoreGeradora() {
 		super();
 		this.algoritmoPrim();
 	}
+
+	/**
+	 * Getters and Setters dos ArrayLists
+	 * */
 
 	public ArrayList<Vertice> getListaVertices() {
 		return listaVertices;
@@ -203,43 +215,4 @@ public class ArvoreGeradora {
 			listaVerticesPossiveis.remove(aresta.getVertice2());
 		}
 	}
-
-	// public void percorrerArestas() {
-	// Aresta menor;
-	// for (int indice = 0; indice < listaArestasPossiveis.size(); indice++) {
-	// if(listaArestasIncluidas.isEmpty()) {
-	// menor = compararArestas(listaArestasPossiveis.get(indice));
-	// } else {
-	// if(compararArestas(listaArestasPossiveis.get(indice).getCusto() <
-	// menor.getCusto()) {
-	//
-	// }}}}
-	//
-	// public Aresta compararArestas(Aresta aresta) {
-	// int contador = 0;
-	// if (!(listaArestasIncluidas.isEmpty())) {
-	// for (int indice = 0; indice < listaArestasIncluidas.size(); indice++) {
-	// if(aresta == listaArestasIncluidas.get(indice)) {
-	// contador++;
-	// }
-	// }
-	// if(contador == 0) {
-	// return aresta;
-	// }
-	// } else {
-	// return aresta;
-	// }
-	// return aresta;
-	// }
-
-	/**
-	 * Método toString responsável pela representação em texto do sub-grafo
-	 * gerado por esta Classe, no canal de saída padrão
-	 * */
-
-	@Override
-	public String toString() {
-		return listaVerticesIncluidos + "" + listaArestasIncluidas;
-	}
-
 }
