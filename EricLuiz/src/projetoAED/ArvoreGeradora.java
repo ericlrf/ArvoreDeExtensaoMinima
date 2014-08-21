@@ -76,6 +76,8 @@ public class ArvoreGeradora {
 			}
 		}
 		listaVerticesIncluidos.addAll(listaVerticesPossiveis);
+		grafo.setListaVertices(listaVerticesIncluidos);
+		grafo.setListaArestas(listaArestasIncluidos);
 	}
 
 	public boolean verificaCiclo(Aresta aresta) {

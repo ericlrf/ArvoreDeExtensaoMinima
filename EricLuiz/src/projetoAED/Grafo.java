@@ -37,6 +37,9 @@ public class Grafo {
 
 	@Override
 	public String toString() {
-		return "" + listaArestas;
+		for (Aresta aresta : listaArestas) {
+			System.out.println(aresta.toString());
+		}
+		return "";
 	}
 }

@@ -90,7 +90,7 @@ public class Menu {
 		System.out.println("Arvore-de-extensao-minima de "
 				+ arvore.getListaVerticesIncluidos().size() + " vertices e "
 				+ arvore.getListaArestasIncluidos().size() + " arestas: ");
-		System.out.println(arvore.toString());
+		System.out.println(grafo.toString());
 
 	}
 }
