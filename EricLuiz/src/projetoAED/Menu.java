@@ -7,16 +7,9 @@ import java.util.TreeSet;
 public class Menu {
 
 	public static void main(String[] args) {
-		/**
-		 * 
-		 * Dados de entrada que tambem podem ser recebidos por Console
-		 * 
-		 * Exemplo retirado do site:
-		 * http://en.wikipedia.org/wiki/Kruskal%27s_algorithm#Example
-		 * 
-		 */
 		Collection<Vertice> vs = new TreeSet<Vertice>();
 		Collection<Aresta> as = new TreeSet<Aresta>();
+		Grafo grafo = new Grafo(vs, as);
 		String texto = "";
 		int texto1 = 0;
 		String texto2 = "";
@@ -41,17 +34,25 @@ public class Menu {
 				System.out.println("Vertices existentes: " + vs.toString());
 				System.out.println("Nome do vertice: ");
 				texto = ler.next();
-				vs.add(new Vertice(texto));
-				System.out.println("Vertice '" + texto + "' adicionado.");
-				System.out.println();
+				if (vs.contains(new Vertice(texto.toUpperCase()))) {
+					System.out.println("Vertice ja existe, escolha outro nome");
+				} else {
+					vs.add(new Vertice(texto.toUpperCase()));
+					System.out.println("Vertice '" + texto.toUpperCase() + "' adicionado.");
+					System.out.println();
+				}
 				break;
 			case 2:
 				System.out.println("Vertices existentes: " + vs.toString());
 				System.out.println("Nome do vertice: ");
 				texto = ler.next();
-				System.out.println("Vertice '" + texto + "' removido.");
-				vs.remove(new Vertice(texto));
-				System.out.println();
+				if (vs.contains(new Vertice(texto.toUpperCase()))) {
+					System.out.println("Vertice '" + texto.toUpperCase() + "' removido.");
+					vs.remove(new Vertice(texto.toUpperCase()));
+					System.out.println();
+				} else {
+					System.out.println("Vertice nao existe, digite o nome correto");
+				}
 				break;
 			case 3:
 				System.out.println("Arestas existentes: " + as.toString());
@@ -62,13 +63,17 @@ public class Menu {
 				texto3 = ler.next();
 				System.out.println("Valor do custo da aresta: ");
 				texto1 = Integer.parseInt(ler.next());
-				if (vs.contains(new Vertice(texto2)) && vs.contains(new Vertice(texto3))) {
-					as.add(new Aresta(texto1, new Vertice(texto2), new Vertice(texto3)));
-					System.out.println("Aresta '" + texto2 + "--" + texto3 + "' de custo " + texto1 + " inserida.");
+				if (vs.contains(new Vertice(texto2.toLowerCase())) && vs.contains(new Vertice(texto3.toLowerCase()))) {
+//					if (as.contains(new Aresta(texto1, new Vertice(texto2.toLowerCase()), new Vertice(texto3.toLowerCase())))) {
+//						System.out.println("Aresta ja existe, forme outra diferente");
+//					} else {
+						as.add(new Aresta(texto1, new Vertice(texto2.toLowerCase()), new Vertice(texto3.toLowerCase())));
+						System.out.println("Aresta '" + texto2.toLowerCase() + "--" + texto3.toLowerCase() + "' de custo " + texto1 + " inserida.");						
+						System.out.println();
+//					}
 				} else {
 					System.out.println("Forme a aresta apenas com vertices existentes");
 				}
-				System.out.println();
 				break;
 			case 4:
 				System.out.println("Arestas existentes: " + as.toString());
@@ -79,11 +84,11 @@ public class Menu {
 				texto3 = ler.next();
 				System.out.println("Valor do custo da aresta: ");
 				texto1 = Integer.parseInt(ler.next());
-				if (vs.contains(new Vertice(texto2)) && vs.contains(new Vertice(texto3))) {
-					System.out.println("Aresta '" + texto2 + "--" + texto3 + "' de custo " + texto1 + " removida.");
-					as.remove(new Aresta(texto1, new Vertice(texto2), new Vertice(texto3)));
+				if (vs.contains(new Vertice(texto2.toLowerCase())) && vs.contains(new Vertice(texto3.toLowerCase()))) {
+						System.out.println("Aresta '" + texto2.toLowerCase() + "--" + texto3.toLowerCase() + "' de custo " + texto1 + " removida.");
+						as.remove(new Aresta(texto1, new Vertice(texto2.toLowerCase()), new Vertice(texto3.toLowerCase())));
 				} else {
-					System.out.println("Apague apenas as arestas existentes");
+					System.out.println("Aresta nao existe, apague uma aresta valida");
 				}
 				System.out.println();
 				break;
@@ -93,8 +98,9 @@ public class Menu {
 				System.out.println("");
 				break;
 			case 6:
-				System.out.println(new ArvoreGeradora(new Grafo(vs, as)));
-//				System.out.println("Arvore-de-extensao-minima de " +  + " vertices e " +  + " arestas: ");
+				ArvoreGeradora arvore = new ArvoreGeradora(grafo);
+				System.out.println("Arvore-de-extensao-minima de " + arvore.getListaVerticesIncluidos().size() + " vertices e " + arvore.getListaArestasIncluidos().size() + " arestas: ");
+				System.out.println(grafo.toString());
 				System.out.println("");
 				break;
 

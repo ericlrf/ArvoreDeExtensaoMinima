@@ -55,18 +55,12 @@ public class ArvoreGeradora {
 		this.listaArestasIncluidos = listaArestasIncluidos;
 	}
 
-	@Override
-	public String toString() {
-		return "" + listaArestasIncluidos;
-	}
-
 	/**
 	 * 
 	 * Os Métodos abaixo são para encontrar uma Árvore de Extensão Mínima do
 	 * Grafo utilizando o Algoritmo de Kruskal
 	 * 
 	 * */
-
 	public void algoritmoDeKruskal(Grafo grafo) {
 		listaVerticesPossiveis.addAll(grafo.getListaVertices());
 		listaArestasPossiveis.addAll(grafo.getListaArestas());
@@ -79,7 +73,7 @@ public class ArvoreGeradora {
 		grafo.setListaVertices(listaVerticesIncluidos);
 		grafo.setListaArestas(listaArestasIncluidos);
 	}
-
+	
 	public boolean verificaCiclo(Aresta aresta) {
 		boolean resultado1 = true;
 		boolean resultado2 = true;
