@@ -1,6 +1,7 @@
 package projetoAED;
 
 import java.util.Collection;
+import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Menu {
@@ -15,82 +16,93 @@ public class Menu {
 		 * 
 		 */
 		Collection<Vertice> vs = new TreeSet<Vertice>();
-		Vertice a = new Vertice("A");
-		vs.add(a);
-		System.out.println("Vertice '" + a + "' adicionado.");
-		Vertice b = new Vertice("B");
-		vs.add(b);
-		System.out.println("Vertice '" + b + "' adicionado.");
-		Vertice c = new Vertice("C");
-		vs.add(c);
-		System.out.println("Vertice '" + c + "' adicionado.");
-		Vertice d = new Vertice("D");
-		vs.add(d);
-		System.out.println("Vertice '" + d + "' adicionado.");
-		Vertice e = new Vertice("E");
-		vs.add(e);
-		System.out.println("Vertice '" + e + "' adicionado.");
-		Vertice f = new Vertice("F");
-		vs.add(f);
-		System.out.println("Vertice '" + f + "' adicionado.");
-		Vertice g = new Vertice("G");
-		vs.add(g);
-		System.out.println("Vertice '" + g + "' adicionado.");
-		System.out.println("Vertices disponiveis: " + vs.toString());
 		Collection<Aresta> as = new TreeSet<Aresta>();
-		Aresta ad = new Aresta(5, a, d);
-		as.add(ad);
-		System.out.println("Aresta '" + ad + "' de custo " + ad.getCusto()
-				+ " adicionada.");
-		Aresta ab = new Aresta(7, a, b);
-		as.add(ab);
-		System.out.println("Aresta '" + ab + "' de custo " + ab.getCusto()
-				+ " adicionada.");
-		Aresta bd = new Aresta(9, b, d);
-		as.add(bd);
-		System.out.println("Aresta '" + bd + "' de custo " + bd.getCusto()
-				+ " adicionada.");
-		Aresta bc = new Aresta(8, b, c);
-		as.add(bc);
-		System.out.println("Aresta '" + bc + "' de custo " + bc.getCusto()
-				+ " adicionada.");
-		Aresta be = new Aresta(7, b, e);
-		as.add(be);
-		System.out.println("Aresta '" + be + "' de custo " + be.getCusto()
-				+ " adicionada.");
-		Aresta ce = new Aresta(5, c, e);
-		as.add(ce);
-		System.out.println("Aresta '" + ce + "' de custo " + ce.getCusto()
-				+ " adicionada.");
-		Aresta de = new Aresta(15, d, e);
-		as.add(de);
-		System.out.println("Aresta '" + de + "' de custo " + de.getCusto()
-				+ " adicionada.");
-		Aresta df = new Aresta(6, d, f);
-		as.add(df);
-		System.out.println("Aresta '" + df + "' de custo " + df.getCusto()
-				+ " adicionada.");
-		Aresta fe = new Aresta(8, f, e);
-		as.add(fe);
-		System.out.println("Aresta '" + fe + "' de custo " + fe.getCusto()
-				+ " adicionada.");
-		Aresta fg = new Aresta(11, f, g);
-		as.add(fg);
-		System.out.println("Aresta '" + fg + "' de custo " + fg.getCusto()
-				+ " adicionada.");
-		Aresta eg = new Aresta(9, e, g);
-		as.add(eg);
-		System.out.println("Aresta '" + eg + "' de custo " + eg.getCusto()
-				+ " adicionada.");
-		Grafo grafo = new Grafo(vs, as);
-		System.out.println("Grafo de " + vs.size() + " vertices e " + as.size()
-				+ " arestas: ");
-		System.out.println(grafo.toString());
-		ArvoreGeradora arvore = new ArvoreGeradora(grafo);
-		System.out.println("Arvore-de-extensao-minima de "
-				+ arvore.getListaVerticesIncluidos().size() + " vertices e "
-				+ arvore.getListaArestasIncluidos().size() + " arestas: ");
-		System.out.println(grafo.toString());
+		String texto = "";
+		int texto1 = 0;
+		String texto2 = "";
+		String texto3 = "";
+		for (int opcao = 10; opcao != 0;) {
+			System.out.println("Selecione uma opcao: ");
+			System.out.println("1-Inserir vertice");
+			System.out.println("2-Remover vertice");
+			System.out.println("3-Inserir aresta");
+			System.out.println("4-Remover aresta");
+			System.out.println("5-Visualizar grafo");
+			System.out.println("6-Visualizar arvore-de-extensao-minima");
+			System.out.println("0-Sair");
+			Scanner ler = new Scanner(System.in);
+			opcao = Integer.parseInt(ler.next());
+			switch (opcao) {
+			case 0:
+				System.out.println("-Fim do Programa-");
+				System.out.println("");
+				break;
+			case 1:
+				System.out.println("Vertices existentes: " + vs.toString());
+				System.out.println("Nome do vertice: ");
+				texto = ler.next();
+				vs.add(new Vertice(texto));
+				System.out.println("Vertice '" + texto + "' adicionado.");
+				System.out.println();
+				break;
+			case 2:
+				System.out.println("Vertices existentes: " + vs.toString());
+				System.out.println("Nome do vertice: ");
+				texto = ler.next();
+				System.out.println("Vertice '" + texto + "' removido.");
+				vs.remove(new Vertice(texto));
+				System.out.println();
+				break;
+			case 3:
+				System.out.println("Arestas existentes: " + as.toString());
+				System.out.println("Vertices existentes: " + vs.toString());
+				System.out.println("Nome de um vertice da aresta: ");
+				texto2 = ler.next();
+				System.out.println("Nome do outro vertice da aresta: ");
+				texto3 = ler.next();
+				System.out.println("Valor do custo da aresta: ");
+				texto1 = Integer.parseInt(ler.next());
+				if (vs.contains(new Vertice(texto2)) && vs.contains(new Vertice(texto3))) {
+					as.add(new Aresta(texto1, new Vertice(texto2), new Vertice(texto3)));
+					System.out.println("Aresta '" + texto2 + "--" + texto3 + "' de custo " + texto1 + " inserida.");
+				} else {
+					System.out.println("Forme a aresta apenas com vertices existentes");
+				}
+				System.out.println();
+				break;
+			case 4:
+				System.out.println("Arestas existentes: " + as.toString());
+				System.out.println("Vertices existentes: " + vs.toString());
+				System.out.println("Nome de um vertice da aresta: ");
+				texto2 = ler.next();
+				System.out.println("Nome do outro vertice da aresta: ");
+				texto3 = ler.next();
+				System.out.println("Valor do custo da aresta: ");
+				texto1 = Integer.parseInt(ler.next());
+				if (vs.contains(new Vertice(texto2)) && vs.contains(new Vertice(texto3))) {
+					System.out.println("Aresta '" + texto2 + "--" + texto3 + "' de custo " + texto1 + " removida.");
+					as.remove(new Aresta(texto1, new Vertice(texto2), new Vertice(texto3)));
+				} else {
+					System.out.println("Apague apenas as arestas existentes");
+				}
+				System.out.println();
+				break;
+			case 5:
+				System.out.println("Grafo de " + vs.size() + " vertices e " + as.size() + " arestas: ");
+				System.out.println(new Grafo(vs, as).toString());
+				System.out.println("");
+				break;
+			case 6:
+				System.out.println(new ArvoreGeradora(new Grafo(vs, as)));
+//				System.out.println("Arvore-de-extensao-minima de " +  + " vertices e " +  + " arestas: ");
+				System.out.println("");
+				break;
 
+			default:
+				System.out.println("Selecione novamente uma opcao valida");
+				System.out.println("");
+				break;
+			}
+		}
 	}
 }
